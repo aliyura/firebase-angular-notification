@@ -1,3 +1,4 @@
+import { MessagingService } from './services/messaging.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'notification-demo';
+  message: any
+
+  constructor(private messageService: MessagingService) {
+
+  }
+
+
+  refreshMessage() {
+    this.messageService.receiveMessage();
+    this.message = this.messageService.currentMessage;
+  }
+
+  ngOnInit(): void {
+
+    this.messageService.requestPermission();
+    this.refreshMessage();
+  
+  }
 }
